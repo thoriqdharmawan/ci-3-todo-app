@@ -58,6 +58,19 @@ class Dashboard extends CI_Controller
         redirect('dashboard');
     }
 
+    public function deleteProject($project_id)
+    {
+        $this->load->model('Project_model');
+        // Hapus proyek berdasarkan project_id
+        $this->Project_model->deleteProject($project_id);
+
+        // Set pesan sukses dan kembali ke halaman dashboard
+        $this->session->set_flashdata('success', 'Project deleted successfully.');
+
+        redirect('dashboard');
+    }
+
+
 
     public function todos($project_id)
     {

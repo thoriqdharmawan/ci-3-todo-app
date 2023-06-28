@@ -12,4 +12,10 @@ class Project_model extends CI_Model {
         $this->db->insert('projects', $data);
     }
     
+    public function deleteProject($project_id) {
+        // Hapus proyek berdasarkan project_id
+        $this->db->where('project_id', $project_id);
+        $this->db->delete('projects');
+    }
+    
 }

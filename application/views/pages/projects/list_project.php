@@ -57,7 +57,10 @@
                 </div>
 
               </a>
-              <button type="submit" class="btn btn-danger">Hapus</button>
+              <a class="btn btn-danger"
+                onclick="return confirm('Apakah yakin untuk menghapus project?')"
+                href="<?php echo base_url('dashboard/deleteProject/' . $project->project_id); ?>">Hapus
+              </a>
             </div>
           </div>
         <?php endforeach; ?>
