@@ -16,7 +16,7 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="<?= base_url('/') ?>" class="nav-link active">
+            <a href="<?= base_url('/dashboard') ?>" class="nav-link active">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Daftar Project

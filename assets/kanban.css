@@ -1,0 +1,15 @@
+.__card-body-kanban {
+  flex-direction: column;
+  display: flex;
+}
+
+.card.draggable {
+  margin-bottom: 1rem;
+  cursor: grab;
+}
+
+.droppable {
+  background-color: rgb(59, 163, 66);
+  min-height: 120px;
+  margin-bottom: 1rem;
+}

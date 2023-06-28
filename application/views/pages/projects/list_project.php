@@ -1,61 +1,67 @@
 <div class="content-wrapper">
-  <!-- Content Header (Page header) -->
+  <section class="content-header pt-4">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between">
+        <h1 class="font-weight-bold">Project</h1>
+        <!-- <a href="/dashboard/add">
+          <button class="btn btn-primary">Tambah Project</button>
+        </a> -->
+      </div>
+    </div>
+  </section>
+
   <section class="content-header">
     <div class="container-fluid">
-      <div class="d-flex justify-content-between mb-2">
-        <h1>Daftar Project</h1>
-        <a href="index.php/dashboard/add">
-          <button class="btn btn-primary">Tambah Project</button>
-        </a>
-      </div>
-    </div><!-- /.container-fluid -->
+      <form action="<?php echo base_url('dashboard/addProject'); ?>" method="POST">
+        <div class="row">
+          <div class="col-sm-12 col-md-4">
+            <div class="form-group">
+              <input type="text" name="project_name" placeholder="Tambahkan Project" class="form-control">
+            </div>
+
+            <button type="submit" class="btn btn-success">Tambah</button>
+          </div>
+        </div>
+      </form>
+
+    </div>
   </section>
-  
-  <!-- Main content -->
+
+  <section class="content-header">
+    <div class="container-fluid">
+      <div class="d-flex justify-content-between">
+        <h3>Daftar Project</h3>
+      </div>
+    </div>
+  </section>
+
   <section class="content">
     <div class="container-fluid">
       <div class="row">
-        <div class="col-12">
-          <div class="card">
-            <!-- /.card-header -->
-            <div class="card-body">
-              <table id="example2" class="table table-bordered table-hover">
-                <thead>
-                  <tr>
-                    <th>No</th>
-                    <th>Nama Project</th>
-                    <th>Aksi</th>
-                  </tr>
-                </thead>
-                <tbody>
-                <?php foreach ($projects as $key=>$project): ?>
-                  <tr>
-                    <td><?php echo $key + 1; ?></td>
-                    <td><?php echo $project->project_name; ?></td>
-                    <td>
-                      <a href="<?= base_url('index.php/dashboard/edit/'. $project->project_id) ?>">
-                        <button class="btn btn-primary">
-                        Edit
-                        </button>
-                      </a>
-                      <a href="<?= base_url('index.php/dashboard/delete/'. $project->project_id) ?>">
-                        <button class="btn btn-danger">hapus</button>
-                      </a>
-                    </td>
-                  </tr>
-                <?php endforeach; ?>
-                </tbody>
-              </table>
+        <?php foreach ($projects as $project): ?>
+          <div class="col-sm-12 col-md-3">
+            <div class="card">
+              <a href="<?php echo base_url('dashboard/todos/' . $project->project_id); ?>">
+                <div class="card-body">
+                  <h4 class="card-title font-weight-bold mb-3">
+                    <?php echo $project->project_name; ?>
+                  </h4>
+                  <p class="card-text">
+                    dibuat pada
+                    <?php
+                    $dateObj = new DateTime($project->created_at);
+                    $formattedDate = $dateObj->format('d M Y');
+                    echo $formattedDate;
+                    ?>
+                  </p>
+                </div>
+
+              </a>
+              <button type="submit" class="btn btn-danger">Hapus</button>
             </div>
-            <!-- /.card-body -->
           </div>
-          <!-- /.card -->
-        </div>
-        <!-- /.col -->
+        <?php endforeach; ?>
       </div>
-      <!-- /.row -->
     </div>
-    <!-- /.container-fluid -->
   </section>
-  <!-- /.content -->
 </div>
