@@ -121,8 +121,9 @@ class Dashboard extends CI_Controller
 
     public function todos($project_id)
     {
-        $data['todos'] = $this->Todo_model->getTodosByProject($project_id);
-        $data['todosTodo'] = $this->Todo_model->getTodosTodoByProject($project_id);
+        $data['todosTodo'] = $this->Todo_model->getTodosStatus($project_id, 'TODO');
+        $data['todosInprogress'] = $this->Todo_model->getTodosStatus($project_id, 'INPROGRESS');
+        $data['todosDone'] = $this->Todo_model->getTodosStatus($project_id, 'DONE');
         $data['userLogin'] = $this->session->userdata('data_user_login');
         $data['project_id'] = $project_id;
 
@@ -205,4 +206,11 @@ class Dashboard extends CI_Controller
         }
     }
 
+    public function updateTodoStatus($project_id, $todo_id, $status)
+    {
+        // Update status berdasarkan $status
+        $this->Todo_model->updateTodoStatus($todo_id, $status);
+
+        redirect('dashboard/todos/' . $project_id);
+    }
 }

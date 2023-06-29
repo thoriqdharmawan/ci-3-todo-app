@@ -5,39 +5,18 @@
       <div class="d-flex justify-content-between">
         <h1 class="font-weight-bold">Todo</h1>
         <a href="<?php echo base_url('dashboard/addTodo/' . $project_id); ?>">
-          <button class="btn btn-primary">Tambah Project</button>
+          <button class="btn btn-primary">Tambah Todo</button>
         </a>
       </div>
     </div>
   </section>
-
-  <?php if (empty($todos)): ?>
-    <p>Tidak ada tugas untuk proyek ini.</p>
-  <?php else: ?>
-    <ul>
-      <?php foreach ($todos as $todo): ?>
-        <li>
-          <?php echo $todo->todo_name; ?>
-        </li>
-      <?php endforeach; ?>
-    </ul>
-  <?php endif; ?>
-
-  <section class="content-header">
-    <div class="container-fluid">
-      <div class="row">
-        <div class="col-sm-6">
-          <h1>Kanban Board</h1>
-        </div>
-      </div>
-    </div>
-  </section>
-
+  
   <section class="content pb-3">
     <div class="container-fluid h-100">
       <div class="card card-row card-secondary">
         <div class="card-header">
           <h3 class="card-title">
+            <i class="fas fa-list-ul mr-2"></i>
             Todo
           </h3>
         </div>
@@ -50,16 +29,34 @@
                   <?php echo $todo->todo_name; ?>
                 </h5>
                 <div class="card-tools">
-                  <a href="<?php echo base_url('dashboard/deleteTodo/' . $project_id . '/' . $todo->todo_id); ?>"
-                    class="btn btn-tool">
-                    <i class="fas fa-trash"></i>
-                  </a>
-                  <a href="<?php echo base_url('dashboard/editTodo/' . $project_id . '/' . $todo->todo_id); ?>" class="btn btn-tool">
-                    <i class="fas fa-pen"></i>
-                  </a>
-                  <!-- <a href="#" class="btn btn-tool">
-                    <i class="fas fa-pen"></i>
-                  </a> -->
+
+                  <div class="dropdown mr-3">
+                    <i class="fas fa-caret-down" data-toggle="dropdown" aria-expanded="false"></i>
+                    <div class="dropdown-menu">
+                      <a href="<?php echo base_url('dashboard/editTodo/' . $project_id . '/' . $todo->todo_id); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-pen mr-2"></i>
+                        Edit Todo
+                      </a>
+                      <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/INPROGRESS'); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-bolt mr-2"></i>
+                        Ubah Ke In Progress
+                      </a>
+                      <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/DONE'); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-check mr-2"></i>
+                        Ubah Ke Done
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="<?php echo base_url('dashboard/deleteTodo/' . $project_id . '/' . $todo->todo_id); ?>"
+                        class="dropdown-item text-danger" type="button">
+                        <i class="fas fa-trash mr-2"></i>
+                        Hapus
+                      </a>
+                    </div>
+                  </div>
+
                 </div>
               </div>
               <div class="card-body">
@@ -67,7 +64,7 @@
                   <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
                   <label for="customCheckbox1" class="custom-control-label">Bug</label>
                 </div>
-                <div class="custom-control custom-checkbox">
+                <!-- <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="customCheckbox2" disabled>
                   <label for="customCheckbox2" class="custom-control-label">Feature</label>
                 </div>
@@ -82,7 +79,7 @@
                 <div class="custom-control custom-checkbox">
                   <input class="custom-control-input" type="checkbox" id="customCheckbox5" disabled>
                   <label for="customCheckbox5" class="custom-control-label">Examples</label>
-                </div>
+                </div> -->
               </div>
             </div>
           <?php endforeach; ?>
@@ -92,42 +89,114 @@
       <div class="card card-row card-primary">
         <div class="card-header">
           <h3 class="card-title">
+            <i class="fas fa-bolt mr-2"></i>
             In Progress
           </h3>
         </div>
         <div class="card-body">
-          <div class="card card-primary card-outline">
-            <div class="card-header">
-              <h5 class="card-title">Create first milestone</h5>
-              <div class="card-tools">
-                <a href="#" class="btn btn-tool btn-link">#5</a>
-                <a href="#" class="btn btn-tool">
-                  <i class="fas fa-pen"></i>
-                </a>
+
+          <?php foreach ($todosInprogress as $todo): ?>
+            <div class="card card-info card-outline">
+              <div class="card-header">
+                <h5 class="card-title">
+                  <?php echo $todo->todo_name; ?>
+                </h5>
+                <div class="card-tools">
+
+                  <div class="dropdown mr-3">
+                    <i class="fas fa-caret-down" data-toggle="dropdown" aria-expanded="false"></i>
+                    <div class="dropdown-menu">
+                      <a href="<?php echo base_url('dashboard/editTodo/' . $project_id . '/' . $todo->todo_id); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-pen mr-2"></i>
+                        Edit Todo
+                      </a>
+                      <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/TODO'); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-list-ul mr-2"></i>
+                        Ubah Ke Todo
+                      </a>
+                      <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/DONE'); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-check mr-2"></i>
+                        Ubah Ke Done
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="<?php echo base_url('dashboard/deleteTodo/' . $project_id . '/' . $todo->todo_id); ?>"
+                        class="dropdown-item text-danger" type="button">
+                        <i class="fas fa-trash mr-2"></i>
+                        Hapus
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
+                  <label for="customCheckbox1" class="custom-control-label">Bug</label>
+                </div>
               </div>
             </div>
-          </div>
+          <?php endforeach; ?>
+
         </div>
       </div>
 
       <div class="card card-row card-success">
         <div class="card-header">
           <h3 class="card-title">
+            <i class="fas fa-check mr-2"></i>
             Done
           </h3>
         </div>
         <div class="card-body">
-          <div class="card card-primary card-outline">
-            <div class="card-header">
-              <h5 class="card-title">Create repo</h5>
-              <div class="card-tools">
-                <a href="#" class="btn btn-tool btn-link">#1</a>
-                <a href="#" class="btn btn-tool">
-                  <i class="fas fa-pen"></i>
-                </a>
+          <?php foreach ($todosDone as $todo): ?>
+            <div class="card card-info card-outline">
+              <div class="card-header">
+                <h5 class="card-title">
+                  <?php echo $todo->todo_name; ?>
+                </h5>
+                <div class="card-tools">
+
+                  <div class="dropdown mr-3">
+                    <i class="fas fa-caret-down" data-toggle="dropdown" aria-expanded="false"></i>
+                    <div class="dropdown-menu">
+                      <a href="<?php echo base_url('dashboard/editTodo/' . $project_id . '/' . $todo->todo_id); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-pen mr-2"></i>
+                        Edit Todo
+                      </a>
+                      <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/TODO'); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-list-ul mr-2"></i>
+                        Ubah Ke Todo
+                      </a>
+                      <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/INPROGRESS'); ?>"
+                        class="dropdown-item" type="button">
+                        <i class="fas fa-bolt mr-2"></i>
+                        Ubah Ke In Progress
+                      </a>
+                      <div class="dropdown-divider"></div>
+                      <a href="<?php echo base_url('dashboard/deleteTodo/' . $project_id . '/' . $todo->todo_id); ?>"
+                        class="dropdown-item text-danger" type="button">
+                        <i class="fas fa-trash mr-2"></i>
+                        Hapus
+                      </a>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
+                  <label for="customCheckbox1" class="custom-control-label">Bug</label>
+                </div>
               </div>
             </div>
-          </div>
+          <?php endforeach; ?>
         </div>
       </div>
     </div>
