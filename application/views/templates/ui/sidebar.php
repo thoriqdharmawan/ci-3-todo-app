@@ -16,10 +16,18 @@
       <nav class="mt-2">
         <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
           <li class="nav-item">
-            <a href="<?= base_url('/dashboard') ?>" class="nav-link active">
+            <a href="<?= base_url('/dashboard') ?>" class="nav-link">
               <i class="nav-icon fas fa-user"></i>
               <p>
                 Daftar Project
+              </p>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a href="<?= base_url('/categories') ?>" class="nav-link">
+              <i class="nav-icon fas fa-star"></i>
+              <p>
+                Daftar Kategori
               </p>
             </a>
           </li>
