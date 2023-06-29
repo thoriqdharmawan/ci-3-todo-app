@@ -13,4 +13,10 @@ class Task_model extends CI_Model
         $this->db->where('task_id', $task_id);
         $this->db->delete('tasks');
     }
+    public function updateTaskStatus($task_id, $status)
+    {
+        $this->db->where('task_id', $task_id);
+        $this->db->set('status', $status);
+        $this->db->update('tasks');
+    }
 }

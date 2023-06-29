@@ -73,27 +73,53 @@
               <div class="card-body">
                 <?php if (!empty($todo['tasks'])): ?>
                   <?php foreach ($todo['tasks'] as $task): ?>
-                    <div class="custom-control custom-checkbox mb-3">
-                      <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
-                      <label for="customCheckbox1" class="custom-control-label">
+                    <div class="custom-control mb-3">
+                      <p style="text-decoration: <?php echo ($task['status'] === 'ACTIVE') ? "line-through" : 'unset'; ?>;"
+                        class="font-weight-bolder">
                         <?php echo $task['task_name']; ?>
-                      </label>
-                      <p class="m-0">
-                        Status:
-                        <?php echo $task['status']; ?>
                       </p>
-                      <p class="m-0">
-                        Kategori:
-                        <?php echo $task['category_name']; ?>
-                      </p>
-                      <a href="<?php echo base_url('dashboard/deleteTask/' . $project_id . '/' . $task['task_id']); ?>"
-                        class="mt-2 text-danger" type="button">
-                        <i class="fas fa-trash mr-2"></i>
-                      </a>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Kategori:
+                        </p>
+                        <p class="m-0">
+                          <?php echo $task['category_name']; ?>
+                        </p>
+                      </div>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Deskripsi:
+                        </p>
+                        <p class="m-0">
+                          <?php echo $task['description']; ?>
+                        </p>
+                      </div>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Dibuat pada:
+                        </p>
+                        <p class="m-0">
+                          <?php
+                          $dateObj = new DateTime($task['created_at']);
+                          $formattedDate = $dateObj->format('d M Y');
+                          echo $formattedDate;
+                          ?>
+                        </p>
+                      </div>
+                      <div class="d-flex justify-content-between mt-2">
+                        <a href="<?php echo base_url('dashboard/updateTaskStatus/' . $project_id . '/' . $task['task_id'] . '/' . $task['status']); ?>"
+                          class="mt-2 text-primary" type="button">
+                          <i class="fas fa-check mr-2"></i>
+                        </a>
+                        <a href="<?php echo base_url('dashboard/deleteTask/' . $project_id . '/' . $task['task_id']); ?>"
+                          class="mt-2 text-danger" type="button">
+                          <i class="fas fa-trash mr-2"></i>
+                        </a>
+                      </div>
                     </div>
                   <?php endforeach; ?>
                 <?php else: ?>
-                  <p>Tidak ada task pada TODO ini</p>
+                  <p>Tidak ada Task</p>
                 <?php endif; ?>
               </div>
             </div>
@@ -115,6 +141,10 @@
                     <div class="modal-body">
                       <div class="form-group">
                         <input type="text" name="task_name" placeholder="Nama Task" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <textarea class="form-control" name="description" placeholder="Description" rows="3"
+                          required></textarea>
                       </div>
                       <div class="form-group">
                         <select class="form-control" name="category_id">
@@ -191,27 +221,53 @@
 
                 <?php if (!empty($todo['tasks'])): ?>
                   <?php foreach ($todo['tasks'] as $task): ?>
-                    <div class="custom-control custom-checkbox mb-3">
-                      <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
-                      <label for="customCheckbox1" class="custom-control-label">
+                    <div class="custom-control mb-3">
+                      <p style="text-decoration: <?php echo ($task['status'] === 'ACTIVE') ? "line-through" : 'unset'; ?>;"
+                        class="font-weight-bolder">
                         <?php echo $task['task_name']; ?>
-                      </label>
-                      <p class="m-0">
-                        Status:
-                        <?php echo $task['status']; ?>
                       </p>
-                      <p class="m-0">
-                        Kategori:
-                        <?php echo $task['category_name']; ?>
-                      </p>
-                      <a href="<?php echo base_url('dashboard/deleteTask/' . $project_id . '/' . $task['task_id']); ?>"
-                        class="mt-2 text-danger" type="button">
-                        <i class="fas fa-trash mr-2"></i>
-                      </a>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Kategori:
+                        </p>
+                        <p class="m-0">
+                          <?php echo $task['category_name']; ?>
+                        </p>
+                      </div>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Deskripsi:
+                        </p>
+                        <p class="m-0">
+                          <?php echo $task['description']; ?>
+                        </p>
+                      </div>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Dibuat pada:
+                        </p>
+                        <p class="m-0">
+                          <?php
+                          $dateObj = new DateTime($task['created_at']);
+                          $formattedDate = $dateObj->format('d M Y');
+                          echo $formattedDate;
+                          ?>
+                        </p>
+                      </div>
+                      <div class="d-flex justify-content-between mt-2">
+                        <a href="<?php echo base_url('dashboard/updateTaskStatus/' . $project_id . '/' . $task['task_id'] . '/' . $task['status']); ?>"
+                          class="mt-2 text-primary" type="button">
+                          <i class="fas fa-check mr-2"></i>
+                        </a>
+                        <a href="<?php echo base_url('dashboard/deleteTask/' . $project_id . '/' . $task['task_id']); ?>"
+                          class="mt-2 text-danger" type="button">
+                          <i class="fas fa-trash mr-2"></i>
+                        </a>
+                      </div>
                     </div>
                   <?php endforeach; ?>
                 <?php else: ?>
-                  <p>No tasks found for this todo.</p>
+                  <p>Tidak ada Task</p>
                 <?php endif; ?>
 
               </div>
@@ -234,6 +290,10 @@
                     <div class="modal-body">
                       <div class="form-group">
                         <input type="text" name="task_name" placeholder="Nama Task" class="form-control" required>
+                      </div>
+                      <div class="form-group">
+                        <textarea class="form-control" name="description" placeholder="Description" rows="3"
+                          required></textarea>
                       </div>
                       <div class="form-group">
                         <select class="form-control" name="category_id">
@@ -310,27 +370,53 @@
               <div class="card-body">
                 <?php if (!empty($todo['tasks'])): ?>
                   <?php foreach ($todo['tasks'] as $task): ?>
-                    <div class="custom-control custom-checkbox mb-3">
-                      <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
-                      <label for="customCheckbox1" class="custom-control-label">
+                    <div class="custom-control mb-3">
+                      <p style="text-decoration: <?php echo ($task['status'] === 'ACTIVE') ? "line-through" : 'unset'; ?>;"
+                        class="font-weight-bolder">
                         <?php echo $task['task_name']; ?>
-                      </label>
-                      <p class="m-0">
-                        Status:
-                        <?php echo $task['status']; ?>
                       </p>
-                      <p class="m-0">
-                        Kategori:
-                        <?php echo $task['category_name']; ?>
-                      </p>
-                      <a href="<?php echo base_url('dashboard/deleteTask/' . $project_id . '/' . $task['task_id']); ?>"
-                        class="mt-2 text-danger" type="button">
-                        <i class="fas fa-trash mr-2"></i>
-                      </a>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Kategori:
+                        </p>
+                        <p class="m-0">
+                          <?php echo $task['category_name']; ?>
+                        </p>
+                      </div>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Deskripsi:
+                        </p>
+                        <p class="m-0">
+                          <?php echo $task['description']; ?>
+                        </p>
+                      </div>
+                      <div class="mb-2">
+                        <p class="m-0 font-weight-light">
+                          Dibuat pada:
+                        </p>
+                        <p class="m-0">
+                          <?php
+                          $dateObj = new DateTime($task['created_at']);
+                          $formattedDate = $dateObj->format('d M Y');
+                          echo $formattedDate;
+                          ?>
+                        </p>
+                      </div>
+                      <div class="d-flex justify-content-between mt-2">
+                        <a href="<?php echo base_url('dashboard/updateTaskStatus/' . $project_id . '/' . $task['task_id'] . '/' . $task['status']); ?>"
+                          class="mt-2 text-primary" type="button">
+                          <i class="fas fa-check mr-2"></i>
+                        </a>
+                        <a href="<?php echo base_url('dashboard/deleteTask/' . $project_id . '/' . $task['task_id']); ?>"
+                          class="mt-2 text-danger" type="button">
+                          <i class="fas fa-trash mr-2"></i>
+                        </a>
+                      </div>
                     </div>
                   <?php endforeach; ?>
                 <?php else: ?>
-                  <p>No tasks found for this todo.</p>
+                  <p>Tidak ada Task</p>
                 <?php endif; ?>
               </div>
             </div>
@@ -353,6 +439,11 @@
                       <div class="form-group">
                         <input type="text" name="task_name" placeholder="Nama Task" class="form-control" required>
                       </div>
+
+                      <div class="form-group">
+                        <textarea class="form-control" name="description" placeholder="Description" rows="3"
+                          required></textarea>
+                      </div>
                       <div class="form-group">
                         <select class="form-control" name="category_id">
                           <?php foreach ($categories as $category): ?>
@@ -373,8 +464,6 @@
           <?php endforeach; ?>
         </div>
       </div>
-
-
     </div>
   </section>
 </div>

@@ -109,7 +109,6 @@ class Dashboard extends CI_Controller
         }
     }
 
-
     public function deleteProject($project_id)
     {
         // Hapus proyek berdasarkan project_id
@@ -144,6 +143,7 @@ class Dashboard extends CI_Controller
     {
         $data = array(
             'todo_name' => "Todo Baru",
+            // 'created_at' => time(),
             'project_id' => $project_id,
         );
 
@@ -223,10 +223,12 @@ class Dashboard extends CI_Controller
     {
         // Ambil data input dari form tambah task
         $task_name = $this->input->post('task_name');
+        $description = $this->input->post('description');
         $category_id = $this->input->post('category_id');
 
         // Validasi data input
         $this->form_validation->set_rules('task_name', 'Task Name', 'required');
+        $this->form_validation->set_rules('description', 'Description', 'required');
         $this->form_validation->set_rules('category_id', 'Category', 'required');
 
         if ($this->form_validation->run() == FALSE) {
@@ -238,7 +240,8 @@ class Dashboard extends CI_Controller
             $data = array(
                 'task_name' => $task_name,
                 'todo_id' => $todo_id,
-                'category_id' => $category_id
+                'description' => $description,
+                'category_id' => $category_id,
             );
             $this->Task_model->addTask($data);
 
@@ -251,4 +254,11 @@ class Dashboard extends CI_Controller
         $this->Task_model->deleteTask($task_id);
         redirect('dashboard/todos/' . $project_id);
     }
+
+    public function updateTaskStatus($project_id, $task_id, $status)
+    {
+        $this->Task_model->updateTaskStatus($task_id, $status === 'ACTIVE' ? 'INACTIVE' : 'ACTIVE');
+        redirect('dashboard/todos/' . $project_id);
+    }
+
 }

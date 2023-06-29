@@ -5,7 +5,7 @@ class Todo_model extends CI_Model
 {
     public function getTodosStatus($project_id, $status)
     {
-        $this->db->select('todos.todo_id, todos.todo_name, tasks.task_id, tasks.task_name, tasks.status, categories.category_name');
+        $this->db->select('todos.todo_id, todos.todo_name, tasks.task_id, tasks.task_name, tasks.status, tasks.description, tasks.created_at, categories.category_name');
         $this->db->from('todos');
         $this->db->join('tasks', 'todos.todo_id = tasks.todo_id', 'left');
         $this->db->join('categories', 'tasks.category_id = categories.category_id', 'left');
@@ -33,6 +33,8 @@ class Todo_model extends CI_Model
                     'task_id' => $row->task_id,
                     'task_name' => $row->task_name,
                     'status' => $row->status,
+                    'description' => $row->description,
+                    'created_at' => $row->created_at,
                     'category_name' => $row->category_name
                 );
             }
