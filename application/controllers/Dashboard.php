@@ -12,6 +12,7 @@ class Dashboard extends CI_Controller
         $this->load->model('User_model');
         $this->load->model('Project_model');
         $this->load->model('Task_model');
+        $this->load->model('Category_model');
     }
 
     private function checkLogin()
@@ -120,8 +121,10 @@ class Dashboard extends CI_Controller
         redirect('dashboard');
     }
 
+
     public function todos($project_id)
     {
+        $data['categories'] = $this->Category_model->getCategories();
         $data['detailProject'] = $this->Project_model->getProjectById($project_id);
         $data['todosTodo'] = $this->Todo_model->getTodosStatus($project_id, 'TODO');
         $data['todosInprogress'] = $this->Todo_model->getTodosStatus($project_id, 'INPROGRESS');
@@ -220,9 +223,11 @@ class Dashboard extends CI_Controller
     {
         // Ambil data input dari form tambah task
         $task_name = $this->input->post('task_name');
+        $category_id = $this->input->post('category_id');
 
         // Validasi data input
         $this->form_validation->set_rules('task_name', 'Task Name', 'required');
+        $this->form_validation->set_rules('category_id', 'Category', 'required');
 
         if ($this->form_validation->run() == FALSE) {
             // Jika validasi gagal, tampilkan pesan error dan kembali ke halaman daftar task
@@ -232,7 +237,8 @@ class Dashboard extends CI_Controller
             // Jika validasi sukses, tambahkan task ke database
             $data = array(
                 'task_name' => $task_name,
-                'todo_id' => $todo_id
+                'todo_id' => $todo_id,
+                'category_id' => $category_id
             );
             $this->Task_model->addTask($data);
 
@@ -240,4 +246,9 @@ class Dashboard extends CI_Controller
         }
     }
 
+    public function deleteTask($project_id, $task_id)
+    {
+        $this->Task_model->deleteTask($task_id);
+        redirect('dashboard/todos/' . $project_id);
+    }
 }
