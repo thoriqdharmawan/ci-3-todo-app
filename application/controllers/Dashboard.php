@@ -120,7 +120,6 @@ class Dashboard extends CI_Controller
         redirect('dashboard');
     }
 
-
     public function todos($project_id)
     {
         $data['categories'] = $this->Category_model->getCategories();
