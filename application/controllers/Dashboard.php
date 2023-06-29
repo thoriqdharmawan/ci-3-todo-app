@@ -121,6 +121,7 @@ class Dashboard extends CI_Controller
 
     public function todos($project_id)
     {
+        $data['detailProject'] = $this->Project_model->getProjectById($project_id);
         $data['todosTodo'] = $this->Todo_model->getTodosStatus($project_id, 'TODO');
         $data['todosInprogress'] = $this->Todo_model->getTodosStatus($project_id, 'INPROGRESS');
         $data['todosDone'] = $this->Todo_model->getTodosStatus($project_id, 'DONE');

@@ -1,16 +1,18 @@
 <!-- Content Wrapper. Contains page content -->
 <div class="content-wrapper kanban">
-  <section class="content-header pt-4">
+  <section class="content-header pt-4 mb-4">
     <div class="container-fluid">
       <div class="d-flex justify-content-between">
-        <h1 class="font-weight-bold">Todo</h1>
+        <h1 class="font-weight-bold">
+          <?php echo $detailProject->project_name; ?>
+        </h1>
         <a href="<?php echo base_url('dashboard/addTodo/' . $project_id); ?>">
           <button class="btn btn-primary">Tambah Todo</button>
         </a>
       </div>
     </div>
   </section>
-  
+
   <section class="content pb-3">
     <div class="container-fluid h-100">
       <div class="card card-row card-secondary">
