@@ -2,7 +2,8 @@
 defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Project_model extends CI_Model {
-    public function getProjects() {
+    public function getProjects($user_id) {
+        $this->db->where('user_id', $user_id);
         $query = $this->db->get('projects');
         return $query->result();
     }

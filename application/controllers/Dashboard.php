@@ -25,8 +25,8 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
-        $data['projects'] = $this->Project_model->getProjects();
         $data['userLogin'] = $this->session->userdata('data_user_login');
+        $data['projects'] = $this->Project_model->getProjects($data['userLogin']->user_id);
 
         $this->load->view('templates/providers/styles');
         $this->load->view('templates/ui/preloader');
