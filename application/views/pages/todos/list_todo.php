@@ -4,9 +4,9 @@
     <div class="container-fluid">
       <div class="d-flex justify-content-between">
         <h1 class="font-weight-bold">Todo</h1>
-        <!-- <a href="/dashboard/add">
+        <a href="<?php echo base_url('dashboard/addTodo/' . $project_id); ?>">
           <button class="btn btn-primary">Tambah Project</button>
-        </a> -->
+        </a>
       </div>
     </div>
   </section>
@@ -42,44 +42,53 @@
           </h3>
         </div>
         <div class="card-body">
-          
-          <div class="card card-info card-outline">
-            <div class="card-header">
-              <h5 class="card-title">Create Labels</h5>
-              <div class="card-tools">
-                <a href="#" class="btn btn-tool btn-link">#3</a>
-                <a href="#" class="btn btn-tool">
-                  <i class="fas fa-pen"></i>
-                </a>
+
+          <?php foreach ($todosTodo as $todo): ?>
+            <div class="card card-info card-outline">
+              <div class="card-header">
+                <h5 class="card-title">
+                  <?php echo $todo->todo_name; ?>
+                </h5>
+                <div class="card-tools">
+                  <a href="<?php echo base_url('dashboard/deleteTodo/' . $project_id . '/' . $todo->todo_id); ?>"
+                    class="btn btn-tool">
+                    <i class="fas fa-trash"></i>
+                  </a>
+                  <a href="<?php echo base_url('dashboard/editTodo/' . $project_id . '/' . $todo->todo_id); ?>" class="btn btn-tool">
+                    <i class="fas fa-pen"></i>
+                  </a>
+                  <!-- <a href="#" class="btn btn-tool">
+                    <i class="fas fa-pen"></i>
+                  </a> -->
+                </div>
+              </div>
+              <div class="card-body">
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
+                  <label for="customCheckbox1" class="custom-control-label">Bug</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="customCheckbox2" disabled>
+                  <label for="customCheckbox2" class="custom-control-label">Feature</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="customCheckbox3" disabled>
+                  <label for="customCheckbox3" class="custom-control-label">Enhancement</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="customCheckbox4" disabled>
+                  <label for="customCheckbox4" class="custom-control-label">Documentation</label>
+                </div>
+                <div class="custom-control custom-checkbox">
+                  <input class="custom-control-input" type="checkbox" id="customCheckbox5" disabled>
+                  <label for="customCheckbox5" class="custom-control-label">Examples</label>
+                </div>
               </div>
             </div>
-            <div class="card-body">
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="customCheckbox1" disabled>
-                <label for="customCheckbox1" class="custom-control-label">Bug</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="customCheckbox2" disabled>
-                <label for="customCheckbox2" class="custom-control-label">Feature</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="customCheckbox3" disabled>
-                <label for="customCheckbox3" class="custom-control-label">Enhancement</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="customCheckbox4" disabled>
-                <label for="customCheckbox4" class="custom-control-label">Documentation</label>
-              </div>
-              <div class="custom-control custom-checkbox">
-                <input class="custom-control-input" type="checkbox" id="customCheckbox5" disabled>
-                <label for="customCheckbox5" class="custom-control-label">Examples</label>
-              </div>
-            </div>
-          </div>
-        
+          <?php endforeach; ?>
         </div>
       </div>
-      
+
       <div class="card card-row card-primary">
         <div class="card-header">
           <h3 class="card-title">
