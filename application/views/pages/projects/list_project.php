@@ -57,10 +57,11 @@
                 </div>
 
               </a>
-              <a class="btn btn-danger"
-                onclick="return confirm('Apakah yakin untuk menghapus project?')"
-                href="<?php echo base_url('dashboard/deleteProject/' . $project->project_id); ?>">Hapus
-              </a>
+              <?php if ($project->user_id == $userLogin->user_id): ?>
+                <a class="btn btn-danger" onclick="return confirm('Apakah yakin untuk menghapus project?')"
+                  href="<?php echo base_url('dashboard/deleteProject/' . $project->project_id); ?>">Hapus
+                </a>
+              <?php endif; ?>
             </div>
           </div>
         <?php endforeach; ?>

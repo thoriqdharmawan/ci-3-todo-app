@@ -7,6 +7,8 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->checkLogin();
+        
+        $this->load->model('User_model');
     }
 
     private function checkLogin()
@@ -21,11 +23,12 @@ class Dashboard extends CI_Controller
     {
         $this->load->model('Project_model');
         $data['projects'] = $this->Project_model->getProjects();
+        $data['userLogin'] = $this->session->userdata('data_user_login');
 
         $this->load->view('templates/providers/styles');
         $this->load->view('templates/ui/preloader');
         $this->load->view('templates/ui/navbar');
-        $this->load->view('templates/ui/sidebar');
+        $this->load->view('templates/ui/sidebar', $data);
         $this->load->view('pages/projects/list_project', $data);
         $this->load->view('templates/providers/js');
     }

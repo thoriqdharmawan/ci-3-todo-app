@@ -29,6 +29,7 @@ class Auth extends CI_Controller {
         // Login sukses
         // Set session untuk pengguna yang berhasil login
         $this->session->set_userdata('user_id', $user->user_id);
+        $this->session->set_userdata('data_user_login', $user);
         redirect('dashboard');
       } else {
         // Login gagal
@@ -41,6 +42,7 @@ class Auth extends CI_Controller {
   public function logout() {
     // Logout pengguna
     $this->session->unset_userdata('user_id');
+    $this->session->unset_userdata('data_user_login');
     
     redirect('auth/login');
   }
