@@ -58,10 +58,12 @@
                     <a class="btn rounded-0" href="<?php echo base_url('dashboard/editProject/' . $project->project_id); ?>">
                       <i class="fas fa-pen mr-2"></i>
                     </a>
-                    <a class="btn rounded-0 text-danger" onclick="return confirm('Apakah yakin untuk menghapus project?')"
-                      href="<?php echo base_url('dashboard/deleteProject/' . $project->project_id); ?>">
-                      <i class="fas fa-trash mr-2"></i>
-                    </a>
+                    <?php if (!$project->hasTodo): ?>
+                      <a class="btn rounded-0 text-danger" onclick="return confirm('Apakah yakin untuk menghapus project?')"
+                        href="<?php echo base_url('dashboard/deleteProject/' . $project->project_id); ?>">
+                        <i class="fas fa-trash mr-2"></i>
+                      </a>
+                    <?php endif; ?>
                   </div>
                 <?php endif; ?>
               </div>
