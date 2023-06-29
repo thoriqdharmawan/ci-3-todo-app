@@ -3,9 +3,6 @@
     <div class="container-fluid">
       <div class="d-flex justify-content-between">
         <h1 class="font-weight-bold">Project</h1>
-        <!-- <a href="/dashboard/add">
-          <button class="btn btn-primary">Tambah Project</button>
-        </a> -->
       </div>
     </div>
   </section>
@@ -23,7 +20,6 @@
           </div>
         </div>
       </form>
-
     </div>
   </section>
 
@@ -58,9 +54,14 @@
 
               </a>
               <?php if ($project->user_id == $userLogin->user_id): ?>
-                <a class="btn btn-danger" onclick="return confirm('Apakah yakin untuk menghapus project?')"
-                  href="<?php echo base_url('dashboard/deleteProject/' . $project->project_id); ?>">Hapus
-                </a>
+                <div class="d-flex flex-row justify-content-between mt-2">
+                  <a class="btn rounded-0"
+                    href="<?php echo base_url('dashboard/editProject/' . $project->project_id); ?>">Ubah
+                  </a>
+                  <a class="btn btn-danger rounded-0" onclick="return confirm('Apakah yakin untuk menghapus project?')"
+                    href="<?php echo base_url('dashboard/deleteProject/' . $project->project_id); ?>">Hapus
+                  </a>
+                </div>
               <?php endif; ?>
             </div>
           </div>

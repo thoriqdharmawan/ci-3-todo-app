@@ -17,5 +17,15 @@ class Project_model extends CI_Model {
         $this->db->where('project_id', $project_id);
         $this->db->delete('projects');
     }
+
+    public function getProjectById($project_id) {
+        $this->db->where('project_id', $project_id);
+        $query = $this->db->get('projects');
+        return $query->row();
+    }
     
+    public function updateProject($project_id, $data) {
+        $this->db->where('project_id', $project_id);
+        $this->db->update('projects', $data);
+    }
 }

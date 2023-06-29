@@ -7,8 +7,10 @@ class Dashboard extends CI_Controller
     {
         parent::__construct();
         $this->checkLogin();
-        
+
+        $this->load->model('Todo_model');
         $this->load->model('User_model');
+        $this->load->model('Project_model');
     }
 
     private function checkLogin()
@@ -21,7 +23,6 @@ class Dashboard extends CI_Controller
 
     public function index()
     {
-        $this->load->model('Project_model');
         $data['projects'] = $this->Project_model->getProjects();
         $data['userLogin'] = $this->session->userdata('data_user_login');
 
@@ -35,7 +36,6 @@ class Dashboard extends CI_Controller
 
     public function addProject()
     {
-        $this->load->model('Project_model');
         // Ambil data input dari form tambah proyek
         $project_name = $this->input->post('project_name');
 
@@ -61,9 +61,55 @@ class Dashboard extends CI_Controller
         redirect('dashboard');
     }
 
+    public function editProject($project_id) {
+        // Ambil data proyek berdasarkan project_id
+        $data['project'] = $this->Project_model->getProjectById($project_id);
+        $data['userLogin'] = $this->session->userdata('data_user_login');
+    
+        if (!$data['project']) {
+            // Jika proyek tidak ditemukan, tampilkan pesan error dan kembali ke halaman dashboard
+            $this->session->set_flashdata('error', 'Project not found.');
+            redirect('dashboard');
+        }
+    
+        
+        $this->load->view('templates/providers/styles');
+        $this->load->view('templates/ui/preloader');
+        $this->load->view('templates/ui/navbar');
+        $this->load->view('templates/ui/sidebar', $data);
+        $this->load->view('pages/projects/edit_project', $data);
+        $this->load->view('templates/providers/js');
+    }
+    
+    public function updateProject($project_id) {
+        // Ambil data input dari form update proyek
+        $project_name = $this->input->post('project_name');
+    
+        // Validasi data input
+        $this->form_validation->set_rules('project_name', 'Project Name', 'required');
+    
+        if ($this->form_validation->run() == FALSE) {
+            // Jika validasi gagal, tampilkan pesan error dan kembali ke halaman edit project
+            $this->session->set_flashdata('error', validation_errors());
+            redirect('dashboard/editProject/'.$project_id);
+        } else {
+            // Jika validasi sukses, update data proyek di database
+            $data = array(
+                'project_name' => $project_name
+                // tambahkan field lainnya sesuai kebutuhan
+            );
+            $this->Project_model->updateProject($project_id, $data);
+    
+            // Set pesan sukses dan kembali ke halaman dashboard
+            $this->session->set_flashdata('success', 'Project updated successfully.');
+            redirect('dashboard');
+        }
+    }
+
+
     public function deleteProject($project_id)
     {
-        $this->load->model('Project_model');
+        // $this->load->model('Project_model');
         // Hapus proyek berdasarkan project_id
         $this->Project_model->deleteProject($project_id);
 
@@ -77,13 +123,14 @@ class Dashboard extends CI_Controller
 
     public function todos($project_id)
     {
-        $this->load->model('Todo_model');
+        // $this->load->model('Todo_model');
         $data['todos'] = $this->Todo_model->getTodosByProject($project_id);
+        $data['userLogin'] = $this->session->userdata('data_user_login');
 
         $this->load->view('templates/providers/styles');
         $this->load->view('templates/ui/preloader');
         $this->load->view('templates/ui/navbar');
-        $this->load->view('templates/ui/sidebar');
+        $this->load->view('templates/ui/sidebar', $data);
         $this->load->view('pages/todos/list_todo', $data);
         $this->load->view('templates/providers/js');
     }
