@@ -11,6 +11,7 @@ class Dashboard extends CI_Controller
         $this->load->model('Todo_model');
         $this->load->model('User_model');
         $this->load->model('Project_model');
+        $this->load->model('Task_model');
     }
 
     private function checkLogin()
@@ -214,4 +215,29 @@ class Dashboard extends CI_Controller
 
         redirect('dashboard/todos/' . $project_id);
     }
+
+    public function addTask($project_id, $todo_id)
+    {
+        // Ambil data input dari form tambah task
+        $task_name = $this->input->post('task_name');
+
+        // Validasi data input
+        $this->form_validation->set_rules('task_name', 'Task Name', 'required');
+
+        if ($this->form_validation->run() == FALSE) {
+            // Jika validasi gagal, tampilkan pesan error dan kembali ke halaman daftar task
+            $this->session->set_flashdata('error', validation_errors());
+            redirect('dashboard/todos/' . $project_id);
+        } else {
+            // Jika validasi sukses, tambahkan task ke database
+            $data = array(
+                'task_name' => $task_name,
+                'todo_id' => $todo_id
+            );
+            $this->Task_model->addTask($data);
+
+            redirect('dashboard/todos/' . $project_id);
+        }
+    }
+
 }

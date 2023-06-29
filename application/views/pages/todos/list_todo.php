@@ -4,7 +4,8 @@
     <div class="container-fluid">
       <div class="d-flex justify-content-between">
         <h1 class="font-weight-bold">
-          Project: <?php echo $detailProject->project_name; ?>
+          Project:
+          <?php echo $detailProject->project_name; ?>
         </h1>
         <a href="<?php echo base_url('dashboard/addTodo/' . $project_id); ?>">
           <button class="btn btn-primary">Tambah Todo</button>
@@ -31,22 +32,26 @@
                   <?php echo $todo->todo_name; ?>
                 </h5>
                 <div class="card-tools">
-
                   <div class="dropdown mr-3">
                     <i class="fas fa-caret-down" data-toggle="dropdown" aria-expanded="false"></i>
                     <div class="dropdown-menu">
+                      <button type="button" class="dropdown-item" data-toggle="modal" data-target="#modalAddTodoTask">
+                        <i class="fas fa-clipboard-list mr-2"></i>
+                        Tambahkan Task
+                      </button>
                       <a href="<?php echo base_url('dashboard/editTodo/' . $project_id . '/' . $todo->todo_id); ?>"
                         class="dropdown-item" type="button">
                         <i class="fas fa-pen mr-2"></i>
                         Edit Todo
                       </a>
+                      <div class="dropdown-divider"></div>
                       <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/INPROGRESS'); ?>"
                         class="dropdown-item" type="button">
                         <i class="fas fa-bolt mr-2"></i>
                         Ubah Ke In Progress
                       </a>
                       <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/DONE'); ?>"
-                        class="dropdown-item" type="button">
+                        class="dropdown-item text-success" type="button">
                         <i class="fas fa-check mr-2"></i>
                         Ubah Ke Done
                       </a>
@@ -84,6 +89,34 @@
                 </div> -->
               </div>
             </div>
+
+            <div class="modal fade" id="modalAddTodoTask" tabindex="-1" aria-labelledby="modalAddTodoTaskLabel"
+              aria-hidden="true">
+              <div class="modal-dialog">
+                <div class="modal-content">
+                  <div class="modal-header">
+                    <h5 class="modal-title" id="modalAddTodoTaskLabel">Tambahkan Task:
+                      <?php echo $todo->todo_name; ?>
+                    </h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                    </button>
+                  </div>
+                  <form action="<?php echo base_url('dashboard/addTask/' . $project_id . '/' . $todo->todo_id); ?>"
+                    method="POST">
+                    <div class="modal-body">
+                      <div class="form-group">
+                        <input type="text" name="task_name" placeholder="Task Name" class="form-control" required>
+                      </div>
+                    </div>
+                    <div class="modal-footer">
+                      <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                      <button type="submit" class="btn btn-primary">Tambahkan</button>
+                    </div>
+                  </form>
+                </div>
+              </div>
+            </div>
           <?php endforeach; ?>
         </div>
       </div>
@@ -118,8 +151,9 @@
                         <i class="fas fa-list-ul mr-2"></i>
                         Ubah Ke Todo
                       </a>
+                      <div class="dropdown-divider"></div>
                       <a href="<?php echo base_url('dashboard/updateTodoStatus/' . $project_id . '/' . $todo->todo_id . '/DONE'); ?>"
-                        class="dropdown-item" type="button">
+                        class="dropdown-item text-success" type="button">
                         <i class="fas fa-check mr-2"></i>
                         Ubah Ke Done
                       </a>
@@ -203,5 +237,4 @@
       </div>
     </div>
   </section>
-
 </div>
