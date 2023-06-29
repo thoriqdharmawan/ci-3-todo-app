@@ -61,7 +61,8 @@
                       </a>
                       <div class="dropdown-divider"></div>
                       <a href="<?php echo base_url('dashboard/deleteTodo/' . $project_id . '/' . $todo['todo_id']); ?>"
-                        class="dropdown-item text-danger" type="button">
+                        class="dropdown-item <?php echo (!empty($todo['tasks'])) ? 'text-disabled disabled' : 'text-danger' ?>"
+                        type="button">
                         <i class="fas fa-trash mr-2"></i>
                         Hapus
                       </a>
@@ -208,7 +209,7 @@
                       </a>
                       <div class="dropdown-divider"></div>
                       <a href="<?php echo base_url('dashboard/deleteTodo/' . $project_id . '/' . $todo['todo_id']); ?>"
-                        class="dropdown-item text-danger" type="button">
+                        class="dropdown-item <?php echo (!empty($todo['tasks'])) ? 'text-disabled disabled' : 'text-danger' ?>" type="button">
                         <i class="fas fa-trash mr-2"></i>
                         Hapus
                       </a>
@@ -359,7 +360,7 @@
                       </a>
                       <div class="dropdown-divider"></div>
                       <a href="<?php echo base_url('dashboard/deleteTodo/' . $project_id . '/' . $todo['todo_id']); ?>"
-                        class="dropdown-item text-danger" type="button">
+                        class="dropdown-item <?php echo (!empty($todo['tasks'])) ? 'text-disabled disabled' : 'text-danger' ?>" type="button">
                         <i class="fas fa-trash mr-2"></i>
                         Hapus
                       </a>
