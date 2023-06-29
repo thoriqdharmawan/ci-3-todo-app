@@ -100,5 +100,4 @@ class Users extends CI_Controller
     // Alihkan kembali ke halaman daftar pengguna
     redirect('users');
   }
-
 }
