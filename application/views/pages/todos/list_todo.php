@@ -4,7 +4,7 @@
     <div class="container-fluid">
       <div class="d-flex justify-content-between">
         <h1 class="font-weight-bold">
-          <?php echo $detailProject->project_name; ?>
+          Project: <?php echo $detailProject->project_name; ?>
         </h1>
         <a href="<?php echo base_url('dashboard/addTodo/' . $project_id); ?>">
           <button class="btn btn-primary">Tambah Todo</button>
