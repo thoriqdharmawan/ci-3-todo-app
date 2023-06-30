@@ -30,8 +30,11 @@
     <div class="container px-4 px-lg-5 text-center">
       <h1 class="mb-1">Todo APP</h1>
       <h3 class="mb-5"><em>Aplikasi Keren Untuk Mencatat Kegiatan Kamu</em></h3>
-      <a class="btn btn-primary btn-xl" href="<?php echo base_url('auth/login'); ?>">Masuk</a>
-      <!-- <a class="btn btn btn-xl" href="#about">Daftar</a> -->
+      <?php if (empty($user_id)): ?>
+        <a class="btn btn-primary btn-xl" href="<?php echo base_url('auth/login'); ?>">Masuk</a>
+      <?php else: ?>
+        <a class="btn btn-primary btn-xl" href="<?php echo base_url('dashboard'); ?>">Ke Dashboard</a>
+      <?php endif ?>
     </div>
   </header>
   <!-- About-->
