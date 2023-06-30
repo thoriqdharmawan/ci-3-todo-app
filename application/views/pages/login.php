@@ -7,7 +7,7 @@
     <!-- Login form -->
     <div class="card">
       <div class="card-body login-card-body">
-        <p class="login-box-msg">Silahkan Login</p>
+        <p class="login-box-msg">Silahkan Masuk</p>
 
         <?php echo validation_errors(); ?>
         <?php echo $this->session->flashdata('error'); ?>
@@ -36,7 +36,7 @@
             </div>
             <!-- /.col -->
             <div class="col-4">
-              <button type="submit" class="btn btn-primary btn-block">Sign In</button>
+              <button type="submit" class="btn btn-primary btn-block">Masuk</button>
             </div>
             <!-- /.col -->
           </div>
